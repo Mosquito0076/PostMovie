@@ -66,11 +66,6 @@ const routes = [
     component: ReviewListView,
   },
   {
-    path: '/reviews/:reviewPk',
-    name: 'review',
-    component: ReviewDetailView,
-  },
-  {
     path: '/reviews/new',
     name: 'reviewNew',
     component: ReviewNewView,
@@ -84,6 +79,11 @@ const routes = [
     path: '/reviews/:reviewPk/edit',
     name: 'reviewEdit',
     component: ReviewEditView,
+  },
+  {
+    path: '/reviews/:reviewPk',
+    name: 'review',
+    component: ReviewDetailView,
   },
   {
     path: '/404',
@@ -120,6 +120,7 @@ router.beforeEach((to, from, next) => {
   const isAuthRequired2 = !freePages.includes(to.name)
 
 
+
   if (!isAuthRequired && isLoggedIn) {
     next({ name: 'mainMovies'})
   }
@@ -130,7 +131,10 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  if (isLoggedIn) {
+  
+  if (to.name === 'logout') {
+    next()
+  } else if (isLoggedIn) {
     store.dispatch('fetchCurrentUser')
     next()
   }

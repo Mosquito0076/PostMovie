@@ -3,8 +3,8 @@
     <div class="comment-list-item d-flex justify-content-between">
       <div class="d-flex justify-content-start row">
         <div v-if="!isEditing">
-          <div style="font-size:13px;">
-            <router-link :to="{ name: 'profile', params: { username: comment.user.username} }" style="text-decoration:none;color:plum;">
+          <div style="font-size:13px;" class="d-flex justify-content-start">
+            <router-link :to="{ name: 'profile', params: { username: comment.user.username} }" style="text-decoration:none;color:plum;margin-right:10px;">
               {{ comment.user.username }}
             </router-link>
             <span style="color:lightslategray;">{{ comment.created_at.slice(5,7) }}/{{ comment.created_at.slice(8,10) }} {{ comment.created_at.slice(11, 16) }}</span>
@@ -20,7 +20,6 @@
           <div>
             <input type="text" v-model="payload.content" maxlength="200" style="width:300px;">
           </div>
-          <div></div>
           <div class="d-flex justify-content-end align-items-center" style="margin-left:550px;">
             <button @click="onUpdate" class="btn btn-primary mx-1">작성</button> | 
             <button @click="switchIsEditing" class="btn btn-danger mx-1">취소</button>

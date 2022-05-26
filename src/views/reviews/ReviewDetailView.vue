@@ -4,7 +4,7 @@
       <div class="justify-content-center" style="width: 18rem;" id="reviewCard">
         <img :src="movie.posterPath" :alt="movie.title" width="120" id="moviePoster">
         <h5>
-          <router-link :to="{ name: 'movie', params: { moviePk: this.movie.id } }" id="movietitle">
+          <router-link :to="{ name: 'movie', params: { moviePk: movie.id ? movie.id : 0 } }" id="movietitle">
             {{ movie.title }}
           </router-link>
         </h5>
@@ -16,8 +16,8 @@
         <hr>
         <p>
           작성자: 
-          <router-link :to="{ name: 'profile', params: { username: this.review.user.username }}" id="username">
-            {{ review.user.username }}
+          <router-link :to="{ name: 'profile', params: { username: reviewUser }}" id="username">
+            {{ reviewUser }}
           </router-link>
         </p>
         <p>리뷰 점수: {{ review.rank }} 점</p>
@@ -43,9 +43,9 @@
     </div>
 
     <div>
-      <span>댓글: {{ review.comments.length }}  |  </span>
+      <span>댓글: {{ review.comments ? review.comments.length : 0 }}  |  </span>
       좋아요:
-      <i class="fa-solid fa-thumbs-up" @click="likeReview(reviewPk)" style="cursor:pointer;" :class="{ liked: review.like_users.filter(user => { return user.username === currentUser.username }).length }"></i>
+      <i class="fa-solid fa-thumbs-up" @click="likeReview(reviewPk)" style="cursor:pointer;" :class="{ liked: likeCount ? review.like_users.filter(user => { return user.username === currentUser.username }).length : 0 }"></i>
       {{ likeCount }}
     </div>
     <hr>
@@ -85,7 +85,7 @@
         return {
           posterPath: this.review.movie?.poster_path,
           title: this.review.movie?.title,
-          id: this.review.movie?.id
+          id: this.review.movie?.id,
         }
       },
       date() {
@@ -94,6 +94,12 @@
         }
         return []
       },
+      reviewUser() {
+        if (this.review.user) {
+          return this.review.user.username
+        }
+        return ' '
+      }
     },
     methods: {
       ...mapActions([
@@ -104,7 +110,7 @@
     },
     created() {
       this.fetchReview(this.reviewPk)
-    }
+    },
   }
 </script>
 

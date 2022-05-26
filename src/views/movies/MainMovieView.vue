@@ -5,9 +5,6 @@
     </div>
     <p class="animationTarget">어서오세요!</p>
     <p class="animationTarget">PostMovie 입니다.</p>
-    
-    
-
     <div v-if="recommendCount">
       <b>'{{ lastReview.title }}'을 보신 분들은 이런 영화도 봤어요!</b>
       <movie-list :movies="recommendedMovie" class="my-5"></movie-list>
@@ -102,15 +99,18 @@
         return 0
       },
     },
-    mounted() {
-      setTimeout(
+    methods: {
+      moving() {
         anime({
           targets: '.animationTarget',
-          easing: 'easeOutExpo',
           opacity: ['0', '1'],
           translateY: '-150px',
-          duration: 3000
-        }), 10000)
+          duration: 5000
+        })
+      },
+    },
+    created() {
+      setTimeout(this.moving, 0)
     }
   }
 </script>

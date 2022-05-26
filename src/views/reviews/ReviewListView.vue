@@ -159,7 +159,7 @@
       setQuestion(event) {
         this.question = event.target[1].value
         const button = document.querySelector('#searchButton')
-        this.searchOrder = button.innerText
+        this.searchOrder = button.innerText.trim()
       },
       handleLoadMore() {
         if (this.total > this.page*10) this.page++

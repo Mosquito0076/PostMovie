@@ -22,7 +22,7 @@
     <br>
     <br>
     <div class="d-flex row-4 justify-content-around mt-5 ms-5">
-      <button v-if="currentUser.username !== profile.username" @click="followUser(profile.username)" class="btn btn-light" id="follow-btn">
+      <button v-if="currentUser.username !== profile.username" @click="followUser(profile.username)" class="btn btn-light mx-3" id="follow-btn">
         <span v-if="isFollowing">
           언팔로우
         </span>
@@ -73,7 +73,7 @@
     </div>
     <div v-if="currentUser.username === profile.username" style="margin-top:100px;">
       <h1>위시리스트</h1>
-      <movie-list :movies="myWishList"></movie-list>
+      <movie-list v-if="wishCount" :movies="myWishList"></movie-list>
     </div>
   </div>
 </template>
@@ -127,6 +127,12 @@
         }
         return []
       },
+      wishCount() {
+        if (this.currentUser.wishlist) {
+          return this.currentUser.wishlist.length
+        }
+        return 0
+      },
     },
     methods: {
       ...mapActions([
@@ -155,11 +161,12 @@
   top: 20px;
 }
 
-#wishlist, #follow-btn {
+#follow-btn {
   height: 50px;
   position: relative;
   left: 150px;
   top: 40px;
+  width: 100px;
 }
 
 #written {

@@ -1,6 +1,7 @@
 import drf from "@/api/drf"
 import axios from "axios"
 import router from "@/router"
+import _ from 'lodash'
 
 export default {
 
@@ -16,7 +17,7 @@ export default {
     movie: state => state.movie,
     weather: state => state.weather,
     recommendedPk: state => state.recommendedPk,
-    recommendedMovie: state => state.movies.filter(movie => { return state.recommendedPk.includes(movie.id) })
+    recommendedMovie: state => _.sampleSize(state.movies.filter(movie => { return state.recommendedPk.includes(movie.id) }), 10)
   },
   mutations: { 
     LOAD_MOVIES: (state, movies) => state.movies = movies,

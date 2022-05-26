@@ -44,7 +44,6 @@ export default {
         data: credentials,
       })
         .then(res => {
-          console.log(res)
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')

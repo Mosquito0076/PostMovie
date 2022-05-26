@@ -14,7 +14,7 @@
             <p class="year">{{ movie.release_date.slice(0, 4) }}</p>
           </div>
             <div v-if="isLoggedIn" class="heart">
-              <i class="fa-solid fa-heart" style="cursor:pointer;" @click="toggleHeart" :class="{ isRed: currentUser.wishlist.includes(movie.id) }"></i>
+              <i class="fa-solid fa-heart" style="cursor:pointer;" @click="toggleHeart" :class="{ isRed: currentUser.wishlist ? currentUser.wishlist.includes(movie.id) : 0 }"></i>
             </div>
         </div>
       </div>
